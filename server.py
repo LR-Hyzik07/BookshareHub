@@ -36,7 +36,7 @@ from werkzeug.utils import secure_filename
 BASE_DIR    = Path(__file__).parent
 UPLOADS_DIR = BASE_DIR / "uploads"
 DB_PATH     = BASE_DIR / "library.db"
-PORT        = 3000
+PORT = int(os.environ.get("PORT", 3000))
 ALLOWED_EXT = {".pdf", ".epub", ".mobi", ".txt"}
 
 UPLOADS_DIR.mkdir(exist_ok=True)
@@ -343,8 +343,8 @@ def delete_book(book_id):
 if __name__ == "__main__":
     init_db()
     print()
-    print("📚  Self Shelf is running!")
+    print("📚 Self Shelf is running!")
     print(f"    Local:  http://localhost:{PORT}")
     print(f"    API:    http://localhost:{PORT}/api")
     print()
-    app.run(port=PORT, debug=True)
+    app.run(host="0.0.0.0", port=PORT, debug=False)
